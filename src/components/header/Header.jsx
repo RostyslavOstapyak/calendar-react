@@ -4,7 +4,7 @@ import { months } from "../../utils/dateUtils.js";
 
 import "./header.scss";
 
-const Header = ({ weekDates, goPrevWeek, goNextWeek, goToday }) => {
+const Header = ({ weekDates, goPrevWeek, goNextWeek, goToday, showModal }) => {
   let displayedMonth;
   if (weekDates[0].getMonth() === weekDates[weekDates.length - 1].getMonth()) {
     displayedMonth = months[weekDates[0].getMonth()];
@@ -16,7 +16,7 @@ const Header = ({ weekDates, goPrevWeek, goNextWeek, goToday }) => {
 
   return (
     <header className="header">
-      <button className="button create-event-btn">
+      <button className="button create-event-btn" onClick={showModal}>
         <i className="fas fa-plus create-event-btn__icon"></i>Create
       </button>
       <div className="navigation">
