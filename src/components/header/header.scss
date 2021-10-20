@@ -8,7 +8,28 @@
 
 .create-event-btn {
   padding: 0 16px;
-
+  background: linear-gradient(
+    90deg,
+    hsla(0, 100%, 50%, 0.459),
+    hsla(86, 98%, 50%, 0.561),
+    hsla(0, 100%, 50%, 0.459)
+  );
+  transition: 0.5s;
+  animation: animate infinite 50s;
+  @keyframes animate {
+    0% {
+      background-position: 0;
+    }
+    50% {
+      background-position: 1000px;
+    }
+    100% {
+      background-position: 0;
+    }
+  }
+  &:hover {
+    box-shadow: 5px 5px 38px -5px;
+  }
   &__icon {
     margin-right: 8px;
   }

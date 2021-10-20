@@ -41,7 +41,8 @@ const App = () => {
     if (
       target.classList.contains("create-event-btn") ||
       target.classList.contains("create-event__close-btn") ||
-      target.classList.contains("overlay")
+      target.classList.contains("overlay") ||
+      target.classList.contains("event-form")
     ) {
       setIsShowModal(!isShowModal);
     }
@@ -56,7 +57,6 @@ const App = () => {
           dateTo: new Date(event.dateTo),
         };
       });
-
       setEventsList(updatedList); // updatedList need to prevent conflict with string type of date
     });
 

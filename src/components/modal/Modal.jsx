@@ -29,7 +29,10 @@ const Modal = ({ onCreateEvent, closeModal }) => {
             +
           </button>
           <form
-            onSubmit={(e) => onCreateEvent(e, eventData)}
+            onSubmit={(e) => {
+              onCreateEvent(e, eventData);
+              closeModal(e);
+            }}
             className="event-form"
           >
             <input
