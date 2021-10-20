@@ -11,3 +11,5 @@ The tech stack is:
 - BEM methodology
 - JavaScript
 - React
+
+created by [Rostyslav Ostapyak](t.me/legendarniy_myr)
