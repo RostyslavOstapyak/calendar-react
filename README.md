@@ -12,4 +12,4 @@ The tech stack is:
 - JavaScript
 - React
 
-created by [Rostyslav Ostapyak](t.me/legendarniy_myr)
+created by [Rostyslav Ostapyak](https://t.me/legendarniy_myr)
