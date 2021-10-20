@@ -5,6 +5,7 @@
   background-color: red;
   display: flex;
   justify-content: space-between;
+  z-index: 3;
   &__triangle {
     color: red;
     margin-top: -7px;

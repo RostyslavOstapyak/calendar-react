@@ -4,7 +4,11 @@ import Header from "./components/header/Header.jsx";
 import Calendar from "./components/calendar/Calendar.jsx";
 import Modal from "./components/modal/Modal.jsx";
 import events from "./gateway/events";
-
+import {
+  sendEventToApi,
+  fetchEvents,
+  deleteEvent,
+} from "./gateway/eventsGateway";
 import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
 
 import "./common.scss";
@@ -12,7 +16,7 @@ import "./common.scss";
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
   const [isShowModal, setIsShowModal] = useState(false);
-  const [eventsList, setEventsList] = useState(events);
+  const [eventsList, setEventsList] = useState([]);
 
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
@@ -43,34 +47,38 @@ const App = () => {
     }
   };
 
-  const getMaxId = () => {
-    let maxId = 0;
-    eventsList.map((event) => {
-      if (event.id > maxId) {
-        maxId = event.id;
-      }
+  const getEvents = () =>
+    fetchEvents().then((eventsList) => {
+      const updatedList = eventsList.map((event) => {
+        return {
+          ...event,
+          dateFrom: new Date(event.dateFrom),
+          dateTo: new Date(event.dateTo),
+        };
+      });
+
+      setEventsList(updatedList); // updatedList need to prevent conflict with string type of date
     });
-    return maxId;
-  };
 
   const createEvent = (e, eventData) => {
     e.preventDefault();
-
     const { date, description, endTime, startTime, title } = eventData;
-    const newId = getMaxId() + 1;
     const newEvent = {
-      id: newId,
       title,
       description,
       dateFrom: new Date(`${date} ${startTime}`),
       dateTo: new Date(`${date} ${endTime}`),
     };
-    setEventsList([...eventsList, newEvent]);
-  };
+    sendEventToApi(newEvent).then(() => getEvents());
+  }; // this one is pushing events to api (checked)
 
   const removeEvent = (id) => {
-    setEventsList(eventsList.filter((event) => event.id !== id));
-  };
+    deleteEvent(id).then(() => getEvents());
+  }; // this one is removing event from api (checked)
+
+  React.useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <>
