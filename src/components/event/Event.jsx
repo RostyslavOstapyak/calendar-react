@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./event.scss";
-import EventDeleteModal from "./eventDeleteModal.jsx";
+import EventDeleteModal from "./EventDeleteModal.jsx";
 
 const Event = ({ height, marginTop, title, time, id, removeEvent }) => {
   const eventStyle = {
