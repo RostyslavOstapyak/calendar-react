@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import moment from "moment";
 import Header from "./components/header/Header.jsx";
 import Calendar from "./components/calendar/Calendar.jsx";
 import Modal from "./components/modal/Modal.jsx";
-import events from "./gateway/events";
 import {
   sendEventToApi,
   fetchEvents,
