@@ -9,24 +9,15 @@
 .create-event-btn,
 .navigation__today-btn {
   padding: 0 16px;
+  background: rgb(178, 178, 178);
   background: linear-gradient(
-    0deg,
-    hsl(0, 50%, 50%),
-    transparent 40%,
-    hsl(1000, 100%, 50%),
-    transparent 40%,
-    hsl(0, 50%, 50%)
+    24deg,
+    rgba(178, 178, 178, 1) 0%,
+    rgba(178, 178, 178, 1) 0%,
+    rgba(255, 255, 255, 1) 40%,
+    rgba(178, 178, 178, 1) 100%
   );
   transition: 0.5s;
-  animation: animate 5s linear infinite;
-  @keyframes animate {
-    0% {
-      filter: hue-rotate(0deg);
-    }
-    100% {
-      filter: hue-rotate(360deg);
-    }
-  }
   &:hover {
     box-shadow: 5px 5px 38px -5px;
   }

@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import Header from "./components/header/Header.jsx";
-import Calendar from "./components/calendar/Calendar.jsx";
-import Modal from "./components/modal/Modal.jsx";
-import {
-  sendEventToApi,
-  fetchEvents,
-  deleteEvent,
-} from "./gateway/eventsGateway";
-import { getWeekStartDate, generateWeekRange } from "../src/utils/dateUtils.js";
+import React, { useState } from 'react';
+import Header from './components/header/Header.jsx';
+import Calendar from './components/calendar/Calendar.jsx';
+import Modal from './components/modal/Modal.jsx';
+import { sendEventToApi, fetchEvents, deleteEvent } from './gateway/eventsGateway';
+import { getWeekStartDate, generateWeekRange } from './utils/dateUtils.js';
 
-import "./common.scss";
+import './common.scss';
 
 const App = () => {
   const [weekStartDate, setWeekStartDate] = useState(new Date());
@@ -19,42 +15,31 @@ const App = () => {
   const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
 
   const goNextWeek = () => {
-    setWeekStartDate(
-      new Date(weekStartDate.setDate(new Date(weekStartDate).getDate() + 7))
-    );
+    setWeekStartDate(new Date(weekStartDate.setDate(new Date(weekStartDate).getDate() + 7)));
   };
 
   const goPrevWeek = () => {
-    setWeekStartDate(
-      new Date(weekStartDate.setDate(new Date(weekStartDate).getDate() - 7))
-    );
+    setWeekStartDate(new Date(weekStartDate.setDate(new Date(weekStartDate).getDate() - 7)));
   };
 
   const goToday = () => {
     setWeekStartDate(new Date());
   };
 
-  const toggleModal = (e) => {
-    const target = e.target;
-    if (
-      target.classList.contains("create-event-btn") ||
-      target.classList.contains("create-event__close-btn") ||
-      target.classList.contains("overlay") ||
-      target.classList.contains("event-form")
-    ) {
+  const toggleModal = e => {
+    const { target } = e;
+    if (target.classList.contains('create-event__close-btn')) {
       setIsShowModal(!isShowModal);
     }
   };
 
   const getEvents = () =>
-    fetchEvents().then((eventsList) => {
-      const updatedList = eventsList.map((event) => {
-        return {
-          ...event,
-          dateFrom: new Date(event.dateFrom),
-          dateTo: new Date(event.dateTo),
-        };
-      });
+    fetchEvents().then(events => {
+      const updatedList = events.map(event => ({
+        ...event,
+        dateFrom: new Date(event.dateFrom),
+        dateTo: new Date(event.dateTo),
+      }));
       setEventsList(updatedList); // updatedList need to prevent conflict with string type of date
     });
 
@@ -70,7 +55,7 @@ const App = () => {
     sendEventToApi(newEvent).then(() => getEvents());
   }; // this one is pushing events to api (checked)
 
-  const removeEvent = (id) => {
+  const removeEvent = id => {
     deleteEvent(id).then(() => getEvents());
   }; // this one is removing event from api (checked)
 
@@ -87,14 +72,8 @@ const App = () => {
         goToday={goToday}
         showModal={toggleModal}
       />
-      {isShowModal && (
-        <Modal closeModal={toggleModal} onCreateEvent={createEvent} />
-      )}
-      <Calendar
-        weekDates={weekDates}
-        eventsList={eventsList}
-        removeEvent={removeEvent}
-      />
+      {isShowModal && <Modal closeModal={toggleModal} onCreateEvent={createEvent} />}
+      <Calendar weekDates={weekDates} eventsList={eventsList} removeEvent={removeEvent} />
     </>
   );
 };
