@@ -1,16 +1,19 @@
-import React from "react";
+import React from 'react';
 
 const TodayLine = () => {
-  const currentHour = new Date().getHours();
-  const currentMinute = new Date().getMinutes();
+  let currentHour = new Date().getHours();
+  let currentMinute = new Date().getMinutes();
 
   const [lineHeight, setLineHeight] = React.useState({
-    top: `${currentHour * 60 + currentMinute / 60}px`,
+    top: `${currentHour * 60 + currentMinute}px`,
   });
 
   React.useEffect(() => {
     const currentTimeout = setInterval(() => {
-      setLineHeight({ top: `${currentHour * 60 + currentMinute / 60}px` });
+      currentHour = new Date().getHours();
+      currentMinute = new Date().getMinutes();
+
+      setLineHeight({ top: `${currentHour * 60 + currentMinute}px` });
     }, 60000);
 
     return () => {

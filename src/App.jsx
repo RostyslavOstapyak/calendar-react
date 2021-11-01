@@ -28,7 +28,10 @@ const App = () => {
 
   const toggleModal = e => {
     const { target } = e;
-    if (target.classList.contains('create-event__close-btn')) {
+    if (
+      target.classList.contains('create-event__close-btn') ||
+      target.classList.contains('create-event-btn')
+    ) {
       setIsShowModal(!isShowModal);
     }
   };
@@ -52,7 +55,9 @@ const App = () => {
       dateFrom: new Date(`${date} ${startTime}`),
       dateTo: new Date(`${date} ${endTime}`),
     };
-    sendEventToApi(newEvent).then(() => getEvents());
+    sendEventToApi(newEvent)
+      .then(() => getEvents())
+      .then(() => setIsShowModal(!isShowModal)); // close modal after creating event
   }; // this one is pushing events to api (checked)
 
   const removeEvent = id => {

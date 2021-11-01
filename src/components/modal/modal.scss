@@ -46,6 +46,7 @@
   &__field {
     margin: 8px;
     border: none;
+    position: relative;
   }
 
   &__submit-btn {
@@ -57,5 +58,26 @@
     border: none;
     padding: 8px 16px;
     border-radius: 8px;
+  }
+}
+
+.time {
+  &__from {
+    &:before {
+      content: 'From';
+      position: absolute;
+      top: -15px;
+      left: 0;
+      right: 0;
+    }
+  }
+  &__to {
+    &:before {
+      content: 'To';
+      position: absolute;
+      top: -15px;
+      left: 0;
+      right: 0;
+    }
   }
 }
